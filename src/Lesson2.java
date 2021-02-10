@@ -1,4 +1,4 @@
-import java.util.Arrays;
+// Пока не закончил, закоммитил случайно
 
 public class Lesson2 {
     private static String[] names = new String[10];
