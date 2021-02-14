@@ -24,22 +24,16 @@ public class Lesson2 {
         newClient("Антонов Григорий Кириллович", true,44);
 
 // Отфильтруем по полу до сортировки, данные выведем в результирующие массивы
-        filterClientsByAge(true);
+        filterClientsBySex(true);
 
 // Отсортируем по возрасту
         sortClientsByAge();
 
 // Выведем, указав пол буквой
         for (int i = 0; i < outCounter; i++) {
-            char sex = 'Ж';
-            if (outSexes[i]) {
-                sex = 'М';
-            }
+            char sex = (boolean) outSexes[i] ? 'М' : 'Ж';
             System.out.printf("%s %s %s %n", outNames[i], sex, outAges[i]);
-//            System.out.println(outNames[i]+" "+sex+" "+outAges[i]);
-
         }
-
     }
 
     private static void newClient(String name, boolean sex, int age) {
@@ -65,22 +59,17 @@ public class Lesson2 {
                 }
             }
         }
-
-
     }
-    public static void filterClientsByAge(boolean isMan) {
+    public static void filterClientsBySex(boolean isMan) {
         for (int i = 0; i < sexes.length; i++){
             if (sexes[i] == isMan){
                 outNames[outCounter] = names[i];
                 outSexes[outCounter] = sexes[i];
                 outAges[outCounter] = ages[i];
                 outCounter++;
-
             }
         }
-
     }
-
 
 }
 
