@@ -1,73 +1,91 @@
-public class Lesson2 {
-    private static String[] names = new String[10];
-    private static boolean[] sexes = new boolean[10];
-    private static int[] ages = new int[10];
+import java.util.Arrays;
 
-    private static String[] outNames = new String[10];
-    private static boolean[] outSexes = new boolean[10];
-    private static int[] outAges = new int[10];
+public class Lesson2 {
+    public static final boolean MAN = true;
+    public static final boolean WOMAN = false;
+
+    public static final int NAME = 0;
+    public static final int SEX = 1;
+    public static final int AGE = 2;
+
+    private static Object[][] clients = new Object[10][3];
 
     private static int counter = 0;
-    private static int outCounter =0;
 
-// Заполним массивы данными
     public static void main(String[] args) {
-        newClient("Беляев Александр Александрович", true,36);
-        newClient("Щербакова Мария Лукинична", false,19);
-        newClient("Серебрякова Таисия Робертовна", false,41);
-        newClient("Агафонова Вероника Дмитриевна", false,22);
-        newClient("Русаков Максим Константинович", true,23);
-        newClient("Данилова Варвара Дамировна", false,41);
-        newClient("Астафьев Степан Артёмович",true,55);
-        newClient("Алексеев Фёдор Артёмович", true,67);
-        newClient("Макаров Павел Робертович",true,30);
-        newClient("Антонов Григорий Кириллович", true,44);
 
-// Отфильтруем по полу до сортировки, данные выведем в результирующие массивы
-        filterClientsBySex(true);
+// Сгенерируем массив с данными
+        addClients();
 
-// Отсортируем по возрасту
-        sortClientsByAge();
+// Фильтрация по полу, данные выведем в результирующий массив, чтобы не портить данные
+        Object[][] outClients = filterClientsBySex(WOMAN, clients);
 
-// Выведем, указав пол буквой
-        for (int i = 0; i < outCounter; i++) {
-            char sex = (boolean) outSexes[i] ? 'М' : 'Ж';
-            System.out.printf("%s %s %s %n", outNames[i], sex, outAges[i]);
-        }
+// Сортировка отфильтрованнного массива по возрасту
+        outClients = sortClientsByAge(outClients);
+
+// Выводим отфильтрованный и отсортированный массив
+        printClients(outClients);
+
     }
 
-    private static void newClient(String name, boolean sex, int age) {
-        names[counter] = name;
-        sexes[counter] = sex;
-        ages[counter] = age;
+
+    private static void addClients() {
+        addClient("Беляев Александр Александрович", MAN, 36);
+        addClient("Щербакова Мария Лукинична", WOMAN, 19);
+        addClient("Серебрякова Таисия Робертовна", WOMAN, 41);
+        addClient("Агафонова Вероника Дмитриевна", WOMAN, 22);
+        addClient("Русаков Максим Константинович", MAN, 23);
+        addClient("Данилова Варвара Дамировна", WOMAN, 41);
+        addClient("Астафьев Степан Артёмович", MAN, 55);
+        addClient("Алексеев Фёдор Артёмович", MAN, 67);
+        addClient("Макаров Павел Робертович", MAN, 30);
+        addClient("Антонов Григорий Кириллович", MAN, 44);
+    }
+
+    private static void addClient(String name, boolean sex, int age) {
+        clients[counter][NAME] = name;
+        clients[counter][SEX] = sex;
+        clients[counter][AGE] = age;
         counter++;
     }
 
-    public static void sortClientsByAge() {
-        for (int i = outCounter - 1; i > 0; i--) {
+    public static Object[][] sortClientsByAge(Object[][] clients) {
+        for (int i = clients.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
-                if (outAges[j] > outAges[j + 1]) {
-                    int tmp = outAges[j];
-                    outAges[j] = outAges[j + 1];
-                    outAges[j + 1] = tmp;
-                    boolean tmp2 = outSexes[j];
-                    outSexes[j] = outSexes[j + 1];
-                    outSexes[j + 1] = tmp2;
-                    String tmp3 = outNames[j];
-                    outNames[j] = outNames[j + 1];
-                    outNames[j + 1] = tmp3;
+                if ((int) clients[j][AGE] > (int) clients[j + 1][AGE]) {
+                    changeElements(clients, j, NAME);
+                    changeElements(clients, j, SEX);
+                    changeElements(clients, j, AGE);
                 }
             }
         }
+        return clients;
     }
-    public static void filterClientsBySex(boolean isMan) {
-        for (int i = 0; i < sexes.length; i++){
-            if (sexes[i] == isMan){
-                outNames[outCounter] = names[i];
-                outSexes[outCounter] = sexes[i];
-                outAges[outCounter] = ages[i];
+
+    private static void changeElements(Object[][] outClients, int row, int column) {
+        Object tmp = outClients[row][column];
+        outClients[row][column] = outClients[row + 1][column];
+        outClients[row + 1][column] = tmp;
+    }
+
+    public static Object[][] filterClientsBySex(boolean sex, Object[][] clients) {
+        Object[][] outClients = new Object[10][3];
+        int outCounter = 0;
+        for (Object[] client : clients) {
+            if ((boolean) client[1] == sex) {
+                outClients[outCounter][NAME] = client[NAME]; //name
+                outClients[outCounter][SEX] = client[SEX]; //sex
+                outClients[outCounter][AGE] = client[AGE]; //age
                 outCounter++;
             }
+        }
+        return Arrays.copyOf(outClients, outCounter);
+    }
+
+    private static void printClients(Object[][] outClients) {
+        for (Object[] outClient : outClients) {
+            char sex = (boolean) outClient[SEX] ? 'М' : 'Ж';
+            System.out.printf("%s %s %s \n", outClient[NAME], sex, outClient[AGE]);
         }
     }
 
