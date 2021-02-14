@@ -3,12 +3,12 @@ import java.util.Arrays;
 public class Lesson2 {
     public static final boolean MAN = true;
     public static final boolean WOMAN = false;
-
+    public static final int MAX_SIZE = 10;
     public static final int NAME = 0;
     public static final int SEX = 1;
     public static final int AGE = 2;
 
-    private static Object[][] clients = new Object[10][3];
+    private static Object[][] clients = new Object[MAX_SIZE][3];
 
     private static int counter = 0;
 
@@ -69,7 +69,7 @@ public class Lesson2 {
     }
 
     public static Object[][] filterClientsBySex(boolean sex, Object[][] clients) {
-        Object[][] outClients = new Object[10][3];
+        Object[][] outClients = new Object[MAX_SIZE][3];
         int outCounter = 0;
         for (Object[] client : clients) {
             if ((boolean) client[1] == sex) {
