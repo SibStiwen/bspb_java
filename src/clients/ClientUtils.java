@@ -17,11 +17,11 @@ public class ClientUtils {
         return outClients;
     }
 
-    public static Client[] filterClientsBySex(boolean sex, Client[] clients) {
+    public static Client[] filterClientsBySex(Gender gender, Client[] clients) {
         Client[] outClients = new Client[clients.length];
         int outCounter = 0;
         for (Client client : clients) {
-            if (client.isSex() == sex) {
+            if (client.getGender() == gender) {
                 outClients[outCounter] = client;
                 outCounter++;
             }

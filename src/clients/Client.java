@@ -3,17 +3,15 @@ package clients;
 import java.util.Objects;
 
 public class Client {
-    public static final boolean MAN = true;
-    public static final boolean WOMAN = false;
 
     private String name;
-    private boolean sex;
+    private Gender gender;
     private int age;
 
-    public Client(String name, boolean sex, int age) {
+    public Client(String name, Gender gender, int age) {
         this.name = name;
         this.age = age;
-        this.sex = sex;
+        this.gender = gender;
     }
 
     public String getName() {
@@ -32,12 +30,12 @@ public class Client {
         this.age = age;
     }
 
-    public boolean isSex() {
-        return sex;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -45,17 +43,16 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return sex == client.sex && age == client.age && name.equals(client.name);
+        return gender == client.gender && age == client.age && name.equals(client.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sex, age);
+        return Objects.hash(name, gender, age);
     }
 
     @Override
     public String toString() {
-        char sex = this.sex ? 'М' : 'Ж';
-        return String.format("%s %s %s", this.name, sex, this.age);
+        return String.format("%s %s %s", this.name, this.gender, this.age);
     }
 }

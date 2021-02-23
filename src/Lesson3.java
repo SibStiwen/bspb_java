@@ -1,28 +1,29 @@
 import clients.Client;
 
-import static clients.Client.MAN;
-import static clients.Client.WOMAN;
+
 import static clients.ClientUtils.*;
+import static clients.Gender.MALE;
+import static clients.Gender.FEMALE;
 
 public class Lesson3 {
 
     public static void main(String[] args) {
         Client[] clients = {
-                new Client("Беляев Александр Александрович", MAN, 36),
-                new Client("Щербакова Мария Лукинична", WOMAN, 19),
-                new Client("Серебрякова Таисия Робертовна", WOMAN, 41),
-                new Client("Агафонова Вероника Дмитриевна", WOMAN, 22),
-                new Client("Русаков Максим Константинович", MAN, 23),
-                new Client("Данилова Варвара Дамировна", WOMAN, 41),
-                new Client("Алексеев Фёдор Артёмович", MAN, 67),
-                new Client("Алексеев Фёдор Артёмович", MAN, 67),
-                new Client("Макаров Павел Робертович", MAN, 30),
-                new Client("Антонов Григорий Кириллович", MAN, 44),
+                new Client("Беляев Александр Александрович", MALE, 36),
+                new Client("Щербакова Мария Лукинична", FEMALE, 19),
+                new Client("Серебрякова Таисия Робертовна", FEMALE, 41),
+                new Client("Агафонова Вероника Дмитриевна", FEMALE, 22),
+                new Client("Русаков Максим Константинович", MALE, 23),
+                new Client("Данилова Варвара Дамировна", FEMALE, 41),
+                new Client("Алексеев Фёдор Артёмович", MALE, 67),
+                new Client("Алексеев Фёдор Артёмович", MALE, 67),
+                new Client("Макаров Павел Робертович", MALE, 30),
+                new Client("Антонов Григорий Кириллович", MALE, 44),
         };
 
         Client[] outClients = deleteDoubles(clients);
 
-        outClients = filterClientsBySex(MAN, outClients);
+        outClients = filterClientsBySex(MALE, outClients);
 
         outClients = sortClientsByAge(outClients);
 
