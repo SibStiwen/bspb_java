@@ -15,7 +15,7 @@ import static clientsl6.Gender.MALE;
 
 public class Lesson7 {
     public static void main(String[] args) {
-        Stream<Client> clients = Stream.of(
+        Stream<Client> clientsStream = Stream.of(
                 new Phisical("Беляев Александр Александрович", 36, MALE),
                 new Phisical("Щербакова Мария Лукинична", 19, FEMALE),
                 new Phisical("Серебрякова Таисия Робертовна", 41, FEMALE),
@@ -30,10 +30,10 @@ public class Lesson7 {
                 new Individual("Антонов Григорий Кириллович", 44, 23332)
         );
 
-        List<Client> outClients = clients.distinct()
+        List<Client> clients = clientsStream.distinct()
                 .filter(client -> isSearchedGender(client, MALE))
                 .sorted(Comparator.comparingInt(Client::getAge))
                 .collect(Collectors.toList());
-        outClients.forEach(Client::print);
+        clients.forEach(Client::print);
     }
 }
