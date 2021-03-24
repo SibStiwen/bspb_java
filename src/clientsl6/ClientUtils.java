@@ -23,7 +23,7 @@ public class ClientUtils {
         return outClients;
     }
 
-    private static boolean isSearchedGender(Client client, Gender gender) {
+    public static boolean isSearchedGender(Client client, Gender gender) {
         if (client instanceof Phisical) {
             Phisical pclient = (Phisical) client;
             return pclient.getGender() == gender;
